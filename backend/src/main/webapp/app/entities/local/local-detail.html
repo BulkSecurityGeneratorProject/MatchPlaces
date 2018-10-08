@@ -1,0 +1,71 @@
+
+<div>
+    <h2><span>Local</span> {{vm.local.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{vm.local.name}}</span>
+        </dd>
+        <dt><span>Latitude</span></dt>
+        <dd>
+            <span>{{vm.local.latitude}}</span>
+        </dd>
+        <dt><span>Longitude</span></dt>
+        <dd>
+            <span>{{vm.local.longitude}}</span>
+        </dd>
+        <dt><span data-translate="projetoServiceApp.local.photo_reference">Photo Reference</span></dt>
+        <dd>
+            <span>{{vm.local.photo_reference}}</span>
+        </dd>
+        <dt><span>Place Id</span></dt>
+        <dd>
+            <span>{{vm.local.placeId}}</span>
+        </dd>
+        <dt><span>Comentario</span></dt>
+        <dd>
+            <span>{{vm.local.comentario}}</span>
+        </dd>
+        <dt><span>Telefone</span></dt>
+        <dd>
+            <span>{{vm.local.telefone}}</span>
+        </dd>
+        <dt><span>Endereco</span></dt>
+        <dd>
+            <span>{{vm.local.endereco}}</span>
+        </dd>
+        <dt><span>Rate</span></dt>
+        <dd>
+            <span>{{vm.local.rate}}</span>
+        </dd>
+        <dt><span>Website</span></dt>
+        <dd>
+            <span>{{vm.local.website}}</span>
+        </dd>
+        <dt><span>Bairro</span></dt>
+        <dd>
+            <span>{{vm.local.bairro}}</span>
+        </dd>
+        <dt><span>Imagem</span></dt>
+        <dd>
+            <span>{{vm.local.imagem}}</span>
+        </dd>
+        <dt><span>Profile</span></dt>
+        <dd>
+            <a ui-sref="profile-detail({id:vm.local.profile.id})">{{vm.local.profile.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="local-detail.edit({id:vm.local.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,35 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "local",
+            "otherEntityName": "local",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "autor",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "url",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "texto",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "rate",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20170908133209",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "comentarios",
+    "pagination": "pagination"
+}

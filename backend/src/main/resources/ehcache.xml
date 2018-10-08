@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         name="CM1"
+         updateCheck="false"
+         maxBytesLocalHeap="16M">
+
+    <!--
+      This is a default configuration, it is re-configured by the CacheConfiguration Spring Bean, using the
+      properties from the resources/config/*.yml files.
+    -->
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <defaultCache
+            eternal="false"
+            overflowToDisk="false"
+            />
+
+    <cache name="com.paty.projeto.domain.User"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Authority"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.User.authorities"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.PersistentToken"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.User.persistentTokens"
+           timeToLiveSeconds="3600">
+    </cache>
+    
+
+    <cache name="com.paty.projeto.social.SocialUserConnection"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Local"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.TipoLocal"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Local.tipoLocals"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Pessoa"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Photo"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Local.photos"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Review"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Local.reviews"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Fotos"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Local.fotos"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Comentario"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Comentarios"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.paty.projeto.domain.Local.comentarios"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <!-- jhipster-needle-ehcache-add-entry -->
+</ehcache>

@@ -1,0 +1,89 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "profile",
+            "otherEntityName": "profile",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "local"
+        },
+        {
+            "relationshipName": "tipoLocal",
+            "otherEntityName": "tipoLocal",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "local"
+        },
+        {
+            "relationshipName": "fotos",
+            "otherEntityName": "fotos",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "local"
+        },
+        {
+            "relationshipName": "comentarios",
+            "otherEntityName": "comentarios",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "local"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "latitude",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "longitude",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "photo_reference",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "placeId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "comentario",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "telefone",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "endereco",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "rate",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "website",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bairro",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "imagem",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        }
+    ],
+    "changelogDate": "20170814211324",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "local",
+    "pagination": "pagination"
+}

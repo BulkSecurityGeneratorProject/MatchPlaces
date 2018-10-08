@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "profile",
+            "otherEntityName": "profile",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "pessoa"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "idTwitter",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tokenTwitter",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "secretTwitter",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170818210944",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "pessoa",
+    "pagination": "pager"
+}

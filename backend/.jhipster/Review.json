@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "author",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "rating",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "texto",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "photo",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170905162330",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "review",
+    "pagination": "pagination"
+}

@@ -1,0 +1,200 @@
+package com.paty.projeto.web.rest;
+
+import com.paty.projeto.ProjetoServiceApp;
+
+import com.paty.projeto.domain.Pessoa;
+import com.paty.projeto.repository.PessoaRepository;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import static org.hamcrest.Matchers.hasItem;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+/**
+ * Test class for the PessoaResource REST controller.
+ *
+ * @see PessoaResource
+ */
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ProjetoServiceApp.class)
+public class PessoaResourceIntTest {
+
+    private static final String DEFAULT_ID_TWITTER = "AAAAA";
+    private static final String UPDATED_ID_TWITTER = "BBBBB";
+
+    private static final String DEFAULT_TOKEN_TWITTER = "AAAAA";
+    private static final String UPDATED_TOKEN_TWITTER = "BBBBB";
+
+    private static final String DEFAULT_SECRET_TWITTER = "AAAAA";
+    private static final String UPDATED_SECRET_TWITTER = "BBBBB";
+
+    @Inject
+    private PessoaRepository pessoaRepository;
+
+    @Inject
+    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
+
+    @Inject
+    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
+
+    @Inject
+    private EntityManager em;
+
+    private MockMvc restPessoaMockMvc;
+
+    private Pessoa pessoa;
+
+    @PostConstruct
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        PessoaResource pessoaResource = new PessoaResource();
+        ReflectionTestUtils.setField(pessoaResource, "pessoaRepository", pessoaRepository);
+        this.restPessoaMockMvc = MockMvcBuilders.standaloneSetup(pessoaResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setMessageConverters(jacksonMessageConverter).build();
+    }
+
+    /**
+     * Create an entity for this test.
+     *
+     * This is a static method, as tests for other entities might also need it,
+     * if they test an entity which requires the current entity.
+     */
+    public static Pessoa createEntity(EntityManager em) {
+        Pessoa pessoa = new Pessoa()
+                .idTwitter(DEFAULT_ID_TWITTER)
+                .tokenTwitter(DEFAULT_TOKEN_TWITTER)
+                .secretTwitter(DEFAULT_SECRET_TWITTER);
+        return pessoa;
+    }
+
+    @Before
+    public void initTest() {
+        pessoa = createEntity(em);
+    }
+
+    @Test
+    @Transactional
+    public void createPessoa() throws Exception {
+        int databaseSizeBeforeCreate = pessoaRepository.findAll().size();
+
+        // Create the Pessoa
+
+        restPessoaMockMvc.perform(post("/api/pessoas")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(pessoa)))
+                .andExpect(status().isCreated());
+
+        // Validate the Pessoa in the database
+        List<Pessoa> pessoas = pessoaRepository.findAll();
+        assertThat(pessoas).hasSize(databaseSizeBeforeCreate + 1);
+        Pessoa testPessoa = pessoas.get(pessoas.size() - 1);
+        assertThat(testPessoa.getIdTwitter()).isEqualTo(DEFAULT_ID_TWITTER);
+        assertThat(testPessoa.getTokenTwitter()).isEqualTo(DEFAULT_TOKEN_TWITTER);
+        assertThat(testPessoa.getSecretTwitter()).isEqualTo(DEFAULT_SECRET_TWITTER);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPessoas() throws Exception {
+        // Initialize the database
+        pessoaRepository.saveAndFlush(pessoa);
+
+        // Get all the pessoas
+        restPessoaMockMvc.perform(get("/api/pessoas?sort=id,desc"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(pessoa.getId().intValue())))
+                .andExpect(jsonPath("$.[*].idTwitter").value(hasItem(DEFAULT_ID_TWITTER.toString())))
+                .andExpect(jsonPath("$.[*].tokenTwitter").value(hasItem(DEFAULT_TOKEN_TWITTER.toString())))
+                .andExpect(jsonPath("$.[*].secretTwitter").value(hasItem(DEFAULT_SECRET_TWITTER.toString())));
+    }
+
+    @Test
+    @Transactional
+    public void getPessoa() throws Exception {
+        // Initialize the database
+        pessoaRepository.saveAndFlush(pessoa);
+
+        // Get the pessoa
+        restPessoaMockMvc.perform(get("/api/pessoas/{id}", pessoa.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.id").value(pessoa.getId().intValue()))
+            .andExpect(jsonPath("$.idTwitter").value(DEFAULT_ID_TWITTER.toString()))
+            .andExpect(jsonPath("$.tokenTwitter").value(DEFAULT_TOKEN_TWITTER.toString()))
+            .andExpect(jsonPath("$.secretTwitter").value(DEFAULT_SECRET_TWITTER.toString()));
+    }
+
+    @Test
+    @Transactional
+    public void getNonExistingPessoa() throws Exception {
+        // Get the pessoa
+        restPessoaMockMvc.perform(get("/api/pessoas/{id}", Long.MAX_VALUE))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @Transactional
+    public void updatePessoa() throws Exception {
+        // Initialize the database
+        pessoaRepository.saveAndFlush(pessoa);
+        int databaseSizeBeforeUpdate = pessoaRepository.findAll().size();
+
+        // Update the pessoa
+        Pessoa updatedPessoa = pessoaRepository.findOne(pessoa.getId());
+        updatedPessoa
+                .idTwitter(UPDATED_ID_TWITTER)
+                .tokenTwitter(UPDATED_TOKEN_TWITTER)
+                .secretTwitter(UPDATED_SECRET_TWITTER);
+
+        restPessoaMockMvc.perform(put("/api/pessoas")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(updatedPessoa)))
+                .andExpect(status().isOk());
+
+        // Validate the Pessoa in the database
+        List<Pessoa> pessoas = pessoaRepository.findAll();
+        assertThat(pessoas).hasSize(databaseSizeBeforeUpdate);
+        Pessoa testPessoa = pessoas.get(pessoas.size() - 1);
+        assertThat(testPessoa.getIdTwitter()).isEqualTo(UPDATED_ID_TWITTER);
+        assertThat(testPessoa.getTokenTwitter()).isEqualTo(UPDATED_TOKEN_TWITTER);
+        assertThat(testPessoa.getSecretTwitter()).isEqualTo(UPDATED_SECRET_TWITTER);
+    }
+
+    @Test
+    @Transactional
+    public void deletePessoa() throws Exception {
+        // Initialize the database
+        pessoaRepository.saveAndFlush(pessoa);
+        int databaseSizeBeforeDelete = pessoaRepository.findAll().size();
+
+        // Get the pessoa
+        restPessoaMockMvc.perform(delete("/api/pessoas/{id}", pessoa.getId())
+                .accept(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
+
+        // Validate the database is empty
+        List<Pessoa> pessoas = pessoaRepository.findAll();
+        assertThat(pessoas).hasSize(databaseSizeBeforeDelete - 1);
+    }
+}

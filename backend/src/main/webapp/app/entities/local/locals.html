@@ -1,0 +1,86 @@
+<div>
+    <h2>Locals</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="local.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Local
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="latitude"><span>Latitude</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="longitude"><span>Longitude</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="photo_reference"><span data-translate="projetoServiceApp.local.photo_reference">Photo Reference</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="placeId"><span>Place Id</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="comentario"><span>Comentario</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="telefone"><span>Telefone</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="endereco"><span>Endereco</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="rate"><span>Rate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="website"><span>Website</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="bairro"><span>Bairro</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="imagem"><span>Imagem</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="profile.id"><span>Profile</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="local in vm.locals track by local.id">
+                    <td><a ui-sref="local-detail({id:local.id})">{{local.id}}</a></td>
+                    <td>{{local.name}}</td>
+                    <td>{{local.latitude}}</td>
+                    <td>{{local.longitude}}</td>
+                    <td>{{local.photo_reference}}</td>
+                    <td>{{local.placeId}}</td>
+                    <td>{{local.comentario}}</td>
+                    <td>{{local.telefone}}</td>
+                    <td>{{local.endereco}}</td>
+                    <td>{{local.rate}}</td>
+                    <td>{{local.website}}</td>
+                    <td>{{local.bairro}}</td>
+                    <td>{{local.imagem}}</td>
+                    <td>
+                        <a ui-sref="profile-detail({id:local.profile.id})">{{local.profile.id}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="local-detail({id:local.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="local.edit({id:local.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="local.delete({id:local.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

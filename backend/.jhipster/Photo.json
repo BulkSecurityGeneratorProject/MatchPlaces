@@ -1,0 +1,16 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "photo",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        }
+    ],
+    "changelogDate": "20170905160536",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "photo",
+    "pagination": "pagination"
+}

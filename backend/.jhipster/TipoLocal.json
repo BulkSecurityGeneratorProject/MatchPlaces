@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "local",
+            "otherEntityName": "local",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "tipo",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170817155958",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "tipo_local",
+    "pagination": "no"
+}

@@ -1,0 +1,101 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myLocalLabel">Create or edit a Local</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.local.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.local.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.local.name"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_latitude">Latitude</label>
+            <input type="number" class="form-control" name="latitude" id="field_latitude"
+                    ng-model="vm.local.latitude"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_longitude">Longitude</label>
+            <input type="number" class="form-control" name="longitude" id="field_longitude"
+                    ng-model="vm.local.longitude"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="projetoServiceApp.local.photo_reference" for="field_photo_reference">Photo Reference</label>
+                <textarea class="form-control" name="photo_reference" id="field_photo_reference"
+                    ng-model="vm.local.photo_reference"  ></textarea>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_placeId">Place Id</label>
+            <input type="text" class="form-control" name="placeId" id="field_placeId"
+                    ng-model="vm.local.placeId"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_comentario">Comentario</label>
+                <textarea class="form-control" name="comentario" id="field_comentario"
+                    ng-model="vm.local.comentario"  ></textarea>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_telefone">Telefone</label>
+            <input type="text" class="form-control" name="telefone" id="field_telefone"
+                    ng-model="vm.local.telefone"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_endereco">Endereco</label>
+            <input type="text" class="form-control" name="endereco" id="field_endereco"
+                    ng-model="vm.local.endereco"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_rate">Rate</label>
+            <input type="number" class="form-control" name="rate" id="field_rate"
+                    ng-model="vm.local.rate"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_website">Website</label>
+            <input type="text" class="form-control" name="website" id="field_website"
+                    ng-model="vm.local.website"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_bairro">Bairro</label>
+            <input type="text" class="form-control" name="bairro" id="field_bairro"
+                    ng-model="vm.local.bairro"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_imagem">Imagem</label>
+                <textarea class="form-control" name="imagem" id="field_imagem"
+                    ng-model="vm.local.imagem"  ></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="field_profile">Profile</label>
+            <select class="form-control" id="field_profile" name="profile" ng-model="vm.local.profile" ng-options="profile as profile.id for profile in vm.profiles | orderBy:'id' track by profile.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

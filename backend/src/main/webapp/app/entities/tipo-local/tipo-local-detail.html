@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span>Tipo Local</span> {{vm.tipoLocal.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Tipo</span></dt>
+        <dd>
+            <span>{{vm.tipoLocal.tipo}}</span>
+        </dd>
+        <dt><span>Local</span></dt>
+        <dd>
+            <a ui-sref="local-detail({id:vm.tipoLocal.local.id})">{{vm.tipoLocal.local.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="tipo-local-detail.edit({id:vm.tipoLocal.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

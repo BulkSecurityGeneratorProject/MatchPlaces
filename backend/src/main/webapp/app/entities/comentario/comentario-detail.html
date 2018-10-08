@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span>Comentario</span> {{vm.comentario.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Autor</span></dt>
+        <dd>
+            <span>{{vm.comentario.autor}}</span>
+        </dd>
+        <dt><span>Url</span></dt>
+        <dd>
+            <span>{{vm.comentario.url}}</span>
+        </dd>
+        <dt><span>Rating</span></dt>
+        <dd>
+            <span>{{vm.comentario.rating}}</span>
+        </dd>
+        <dt><span>Text</span></dt>
+        <dd>
+            <span>{{vm.comentario.text}}</span>
+        </dd>
+        <dt><span>Local</span></dt>
+        <dd>
+            <a ui-sref="local-detail({id:vm.comentario.local.id})">{{vm.comentario.local.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="comentario-detail.edit({id:vm.comentario.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>
